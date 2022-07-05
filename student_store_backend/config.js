@@ -11,7 +11,7 @@ function getDatabaseUri() {
   const dbHost = process.env.DATABASE_HOST || "localhost"
   const dbPort = process.env.DATABASE_PORT || 5432
   const dbTestName = process.env.DATABASE_TEST_NAME || "auth_starter_test"
-  const dbProdName = process.env.DATABASE_NAME || "auth_starter"
+  const dbProdName = process.env.DATABASE_NAME || "student_store"
   const dbName = process.env.NODE_ENV === "test" ? dbTestName : dbProdName
 
   return process.env.DATABASE_URL || `postgresql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`
