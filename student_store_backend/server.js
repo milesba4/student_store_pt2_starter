@@ -1,11 +1,15 @@
+const security = require("./middleware/security")
 const express = require("express")
 const cors = require("cors")
 const morgan = require("morgan")
 const { PORT } = require("./config")
 const { NotFoundError } = require("./utils/errors")
 const authRoutes = require("./routes/auth")
-const security = require("./middleware/security")
+const postRoutes = require("./routes/posts")
 const app = express()
+
+
+
 
 // enable cross-origin resource sharing for all origins for all requests
 // NOTE: in production, we'll want to restrict this to only the origin
@@ -16,10 +20,11 @@ app.use(express.json())
 // log requests info
 app.use(morgan("tiny"))
 app.use("/auth", authRoutes)
+app.use("/posts", postRoutes)
+app.use(security.extractUserFromJwt)
 // for every req check if user exists or token exists
 /// in auth header
 // if it does, arrach the decoded user to res, locals
-app.use(security.extractUserFromJwt)
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
@@ -39,5 +44,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`)
 })
-
 

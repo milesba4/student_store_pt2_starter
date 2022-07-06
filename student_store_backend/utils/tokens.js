@@ -10,7 +10,7 @@ const payload = {
     email:user.email,
     isAdmin:user.isAdmin || false
 }
-return generateToken
+return generateToken(payload)
 }
 
 const validateToken = (token) => {
@@ -26,6 +26,6 @@ return {}
 
 
 
-module.exports(generateToken,
+module.exports = {generateToken,
 createUserJwt,
-validateToken)
+validateToken}
